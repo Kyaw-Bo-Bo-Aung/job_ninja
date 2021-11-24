@@ -1,0 +1,4 @@
+.role_radio input:checked+span{
+    font-weight: 700;
+    font-size: 1.05rem;
+}

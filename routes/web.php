@@ -16,3 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('/profile', function () {
+    return 'this is user profile';
+})->middleware(['role:job_seeker']);
+
+Route::get('/recruiter/dashboard', function () {
+    return 'this is recuriter dashboard';
+})->middleware(['role:recruiter']);
