@@ -1,4 +1,49 @@
+:root, *{
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    color: default;
+}
 .role_radio input:checked+span{
     font-weight: 700;
     font-size: 1.05rem;
+}
+.profile_nav{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+.profile_header{
+    color: white;
+    background-color: rgb(81, 0, 128);
+    height: 20rem;
+}
+.profile_header_content{
+    padding-top: 6rem;
+}
+.main_content{
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba( 0, 0, 0, 0.18 );
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    margin-top: -8rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+}
+
+/* profile  */
+.profile_detail_table tr td, .profile_detail_table tr th{
+    padding: 1.5rem;
+}
+.edu_card{
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 3px rgba( 0, 0, 0, 0.18);
+}
+.edu_card_del_btn{
+    position: absolute;
+    right: -0.8rem;
+    top: -0.8rem;
+    cursor: pointer;
 }

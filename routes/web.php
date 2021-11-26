@@ -1,17 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,9 +13,15 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/profile', function () {
-    return 'this is user profile';
-})->middleware(['role:job_seeker']);
+Route::middleware(['role:job_seeker'])->prefix('profile')->name('profile.')->group(function(){
+    Route::get('/', [ProfileController::class, 'index'])->name('index');
+    Route::get('/setting', [ProfileController::class, 'setting'])->name('setting');
+    Route::get('/create/personal-info', [ProfileController::class, 'create'])->name('personal-info-create');
+    Route::post('/store/personal-info', [ProfileController::class, 'store'])->name('personal-info-store');
+    Route::get('/create/education-info', [ProfileController::class, 'createEdu'])->name('education-info-create');
+    Route::post('/store/education-info', [ProfileController::class, 'storeEdu'])->name('education-info-store');
+});
+
 
 Route::get('/recruiter/dashboard', function () {
     return 'this is recuriter dashboard';
