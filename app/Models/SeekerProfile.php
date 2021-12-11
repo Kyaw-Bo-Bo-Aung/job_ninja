@@ -12,10 +12,10 @@ class SeekerProfile extends Model
     protected $guarded = [];
 
     public function user(){
-        $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function education_details(){
-        $this->hasMany('App\Models\EducationDetail', 'seeker_profile_id');
+        return $this->hasMany('App\Models\EducationDetail', 'seeker_profile_id');
     }
 }
