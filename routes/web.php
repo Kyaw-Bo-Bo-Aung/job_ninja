@@ -25,6 +25,10 @@ Route::middleware(['role:job_seeker'])->prefix('profile')->name('profile.')->gro
     Route::delete('/delete/education-info/{education_detail}', [ProfileController::class, 'deleteEdu'])->name('education-info-delete');
     Route::get('/create/experience-info', [ProfileController::class, 'createExp'])->name('experience-info-create');
     Route::post('/store/experience-info', [ProfileController::class, 'storeExp'])->name('experience-info-store');
+    Route::get('/edit/experience-info/{experience_detail}', [ProfileController::class, 'editExp'])->name('experience-info-edit');
+    Route::post('/update/experience-info/{experience_detail}', [ProfileController::class, 'updateExp'])->name('experience-info-update');
+    Route::delete('/delete/experience-info/{experience_detail}', [ProfileController::class, 'deleteExp'])->name('experience-info-delete');
+
 });
 
 

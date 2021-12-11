@@ -129,4 +129,25 @@ class ProfileController extends Controller
 
         echo "success";
     }
+
+    public function deleteExp(ExperienceDetail $experience_detail){
+        $experience_detail->delete();
+        return redirect()->route('profile.experience-info-create');
+    }
+
+    public function editExp(ExperienceDetail $experience_detail){
+        return view('job_seeker.edit-exp', compact('experience_detail'));
+    }
+
+    public function updateExp(Request $request,ExperienceDetail $experience_detail){
+        $experience_detail->job_title = $request->job_title;
+        $experience_detail->company_name = $request->company_name;
+        $experience_detail->job_location = $request->job_location;
+        $experience_detail->start_date = $request->start_date;
+        $experience_detail->end_date = $request->end_date;
+        $experience_detail->description = $request->description;
+        $experience_detail->update();
+
+        return redirect()->route('profile.experience-info-create');        
+    }
 }

@@ -18,4 +18,8 @@ class SeekerProfile extends Model
     public function education_details(){
         return $this->hasMany('App\Models\EducationDetail', 'seeker_profile_id');
     }
+
+    public function experience_details(){
+        return $this->hasMany( ExperienceDetail::class, 'seeker_profile_id');
+    }
 }

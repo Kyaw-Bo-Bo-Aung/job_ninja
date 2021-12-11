@@ -3,6 +3,45 @@
 
 @section('content')
     <h3>Working Experience</h3>
+    <div class="row">
+        @forelse (auth()->user()->profile->experience_details as $exp)
+            <div class="col-12 col-md-6">
+                <div class="exp_card card mt-1 mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <h5>{{ $exp->job_title }}</h5>
+                            </div>
+                            <div class="col-3 d-flex justify-content-end">
+                                <a href="{{ route('profile.experience-info-edit', $exp->id) }}"><i
+                                        class="mx-1 fas fa-edit text-warning"></i></a>
+                                <form action="{{ route('profile.experience-info-delete', $exp->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="mx-2"><i type='submit'
+                                            class="fas fa-trash text-danger"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="text-muted">{{ $exp->company_name }}</div>
+                        <span>{{ $exp->start_date->format('M Y') }} - {{ $exp->end_date->format('M Y') }}
+                        </span>
+                        <div>
+                            {{ substr($exp->description, 0, 20) }} ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <div class="edu_card card mt-4 mb-5">
+                    <div class="card-body text-center text-secondary">
+                        <i class="fas fa-exclamation-circle"></i> No working experience
+                    </div>
+                </div>
+            </div>
+        @endforelse
+    </div>
     <form action="{{ route('profile.experience-info-store') }}" method="POST">
         @csrf
         <div class="exp_card_wrapper">
@@ -74,8 +113,8 @@
                                 <label class="text-muted text-bold" for="description">Description</label>
                                 <textarea class="form-control  @error('description') is-invalid @enderror" type="text"
                                     id="description" name="description[]" autocomplete="off" rows="5" required>
-                                                        {{ old('description') }}
-                                                    </textarea>
+                                                            {{ old('description') }}
+                                                        </textarea>
                                 @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
