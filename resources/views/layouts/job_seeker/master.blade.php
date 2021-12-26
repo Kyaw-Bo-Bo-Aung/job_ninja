@@ -80,21 +80,40 @@
         <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a href="/profile">
-                    <button class="nav-link {{ Request::is('profile') ? 'active' : '' }}">Profile</button>
+                    <button class="nav-link {{ Request::is('profile') ? 'active' : '' }}">
+                        <i class="fas fa-user-tie me-1"></i>
+                        <span>Profile</span> 
+                    </button>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="/profile/setting">
-                    <button class="nav-link {{ Request::is('profile/setting') ? 'active' : '' }}">Edit profile</button>
+                <a href="/profile/create/education-info">
+                    <button class="nav-link {{ Request::is('profile/*/education-info*') ? 'active' : '' }}">
+                        <i class="fas fa-school me-1"></i>
+                        <span>Education</span>
+                    </button>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="/profile/education">
-                    <button class="nav-link {{ Request::is('profile/education') ? 'active' : '' }}">Education</button>
+                <a href="/profile/create/experience-info">
+                    <button class="nav-link {{ Request::is('profile/*/experience-info*') ? 'active' : '' }}">
+                        <i class="fas fa-briefcase me-1"></i>
+                        <span>Experience</span>
+                    </button>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="/profile/create/experience-info">
+                    <button class="nav-link {{ Request::is('profile/*/skill*') ? 'active' : '' }}">
+                        <i class="fas fa-tasks me-1"></i>
+                        <span>Skill</span>
+                    </button>
+                </a>
+            </li>
+
         </ul>
         <div class="tab-content" id="pills-tabContent">
             @yield('content')

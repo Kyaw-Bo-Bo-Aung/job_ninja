@@ -45,27 +45,6 @@
                 <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required />
             </div>
 
-            <!-- DOB -->
-            <div class="mt-4">
-                <x-label for="date_of_birth" :value="__('Date of birth')" />
-
-                <x-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" required />
-            </div>
-
-            <!-- Gender -->
-            <div class="mt-4">
-                <x-label :value="__('Gender')" />
-                <div>
-                    <input class="mr-1" type="radio" id="male" name="gender" value="male"><label class="text-sm" for="male">Male</label>
-                </div>
-                <div>
-                    <input class="mr-1" type="radio" id="female" name="gender" value="female"><label class="text-sm" for="female">Female</label>
-                </div>
-                <div>
-                    <input class="mr-1" type="radio" id="other" name="gender" value="other"><label class="text-sm" for="other">Other</label>
-                </div>
-
-            </div>
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />

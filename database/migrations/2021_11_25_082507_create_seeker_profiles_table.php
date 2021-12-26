@@ -19,6 +19,8 @@ class CreateSeekerProfilesTable extends Migration
             $table->string('lname');
             $table->string('email');
             $table->string('phone');
+            $table->string('gender', 11);
+            $table->date('date_of_birth');
             $table->string('current_position');
             $table->text('photo')->nullable();
             $table->unsignedBigInteger('user_id');

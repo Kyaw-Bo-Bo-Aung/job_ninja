@@ -26,14 +26,27 @@ class ProfileController extends Controller
     }
 
     public function store(Request $request){
+        // dd($request);
         $request->validate([
             'fname' => ['required', 'min:2', 'max:225'],
             'lname' => ['required', 'min:2', 'max:225'],
             'email' => ['required', 'email'],
             'phone' => ['required', 'min:2', 'max:20'],
             'cposition' => ['required', 'min:2', 'max:225'],
-            'photo' => ['image']
+            'gender' => ['required'],
+            'date_of_birth' => ['required', 'date'],
+            'photo' => [ 'required', 'image']
         ]);
+
+        if($request->file('photo')){
+            $destination_path = public_path('/images/profile');
+            $file_name = uniqid().$request->file('photo')->getClientOriginalName();
+
+            $request->file('photo')->move(
+                $destination_path,
+                $file_name
+            );
+        }
         
         $profile = SeekerProfile::firstOrNew(['user_id' => auth()->user()->id]);
         $profile->fname = $request->fname;
@@ -41,11 +54,58 @@ class ProfileController extends Controller
         $profile->current_position = $request->cposition;
         $profile->email = $request->email;
         $profile->phone = $request->phone;
-        $profile->photo = 'photo';
+        $profile->gender = $request->gender;
+        $profile->date_of_birth = $request->date_of_birth;
+        $profile->photo = $file_name;
         $profile->user_id = auth()->user()->id;
         $profile->save();
 
         return redirect()->route('profile.education-info-create');
+    }
+
+    public function edit(SeekerProfile $seeker_profile) {
+        // dd($seeker_profile);
+        return view('job_seeker.edit', [ 'profile' => $seeker_profile ]);
+    }
+
+    public function update(Request $request,SeekerProfile $seeker_profile){
+        $request->validate([
+            'fname' => ['required', 'min:2', 'max:225'],
+            'lname' => ['required', 'min:2', 'max:225'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'min:2', 'max:20'],
+            'cposition' => ['required', 'min:2', 'max:225'],
+            'gender' => ['required'],
+            'date_of_birth' => ['required', 'date'],
+            'new_photo' => ['image'],
+        ]);
+
+        if($request->file('new_photo')){
+            $destination_path = public_path('/images/profile');
+            $file_name = uniqid().'_'.$request->file('new_photo')->getClientOriginalName();
+
+            $request->file('new_photo')->move(
+                $destination_path,
+                $file_name
+            );
+            if($request->old_photo) unlink($destination_path.'/'.$request->old_photo);
+        }else{
+            $file_name = $request->old_photo;
+        }
+        
+        $profile = SeekerProfile::firstOrNew(['user_id' => auth()->user()->id]);
+        $profile->fname = $request->fname;
+        $profile->lname = $request->lname;
+        $profile->current_position = $request->cposition;
+        $profile->email = $request->email;
+        $profile->phone = $request->phone;
+        $profile->gender = $request->gender;
+        $profile->date_of_birth = $request->date_of_birth;
+        $profile->photo = $file_name;
+        $profile->user_id = auth()->user()->id;
+        $profile->save();
+
+        return redirect()->route('profile.index');
     }
 
     public function createEdu(){

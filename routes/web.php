@@ -16,6 +16,8 @@ require __DIR__.'/auth.php';
 Route::middleware(['role:job_seeker'])->prefix('profile')->name('profile.')->group(function(){
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::get('/setting', [ProfileController::class, 'setting'])->name('setting');
+    Route::get('/edit/personal-info/{seeker_profile}', [ProfileController::class, 'edit'])->name('personal-info-edit');
+    Route::put('/update/personal-info/{seeker_profile}', [ProfileController::class, 'update'])->name('personal-info-update');
     Route::get('/create/personal-info', [ProfileController::class, 'create'])->name('personal-info-create');
     Route::post('/store/personal-info', [ProfileController::class, 'store'])->name('personal-info-store');
     Route::get('/create/education-info', [ProfileController::class, 'createEdu'])->name('education-info-create');
