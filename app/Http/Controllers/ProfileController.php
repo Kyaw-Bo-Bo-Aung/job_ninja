@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SkillSet;
 use Illuminate\Http\Request;
 use App\Models\SeekerProfile;
+use App\Models\SeekerSkillSet;
 use App\Models\EducationDetail;
 use App\Models\ExperienceDetail;
+use App\Models\SkillSetCategory;
 
 class ProfileController extends Controller
 {
@@ -209,5 +212,39 @@ class ProfileController extends Controller
         $experience_detail->update();
 
         return redirect()->route('profile.experience-info-create');        
+    }
+#skillset
+    public function createSkillSet() {
+        $seeker_skill_sets = SeekerSkillSet::with('skill_sets')->where('seeker_profile_id', auth()->user()->profile->id)->get();
+        $cats = SkillSetCategory::get();
+        return view('job_seeker.create-skillset', compact('cats', 'seeker_skill_sets'));
+    }
+
+    public function storeSkillSet(Request $request){
+        $request->validate([
+            'skill_sets' => 'required',
+            'skill' => 'required'
+        ]);
+        
+        foreach($request->skill as $skill){
+            $seeker_skill_set = new SeekerSkillSet;
+            $seeker_skill_set->skill_set_id = $skill;
+            $seeker_skill_set->seeker_profile_id = auth()->user()->profile->id;
+            $seeker_skill_set->save();
+        };
+
+        return 'successfully inserted';
+
+    }
+
+    public function getAllSkillSet(Request $request){
+        $skill_cat_id = $request->id;
+        $data = SeekerSkillSet::where('seeker_profile_id', auth()->user()->profile->id)
+                                ->pluck('skill_set_id')->toArray();
+                                // dd($data);
+        $skills = SkillSet::where('skill_set_category_id', $skill_cat_id)
+                            ->whereNotIn('id', $data )
+                            ->get();
+        return $skills;
     }
 }

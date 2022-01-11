@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\SkillSetSeeder;
+use Database\Seeders\SkillSetCategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,8 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            RoleSeeder::class
+            RoleSeeder::class,
+            // SkillSetSeeder::class,
+            SkillSetCategorySeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
+        \App\Models\SkillSet::factory(30)->create();
     }
 }

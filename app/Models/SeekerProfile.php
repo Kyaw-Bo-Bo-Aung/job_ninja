@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\SkillSet;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SeekerProfile extends Model
 {
@@ -21,5 +22,9 @@ class SeekerProfile extends Model
 
     public function experience_details(){
         return $this->hasMany( ExperienceDetail::class, 'seeker_profile_id');
+    }
+
+    public function seeker_skill_sets(){
+        return $this->hasMany( SeekerSkillSet::class, 'seeker_profile_id');
     }
 }
